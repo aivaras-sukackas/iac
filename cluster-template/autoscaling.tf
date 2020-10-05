@@ -6,7 +6,7 @@ module "autoscaling" {
   key_name             = aws_key_pair.generated_key.key_name
   image_id             = var.image_id
   instance_type        = var.instance_type
-  security_groups      = ["${aws_security_group.autoscaling.id}"]
+  security_groups      = [aws_security_group.autoscaling.id]
   iam_instance_profile = "${var.environment}-ecs-profile"
   root_block_device = [
     {
@@ -20,13 +20,13 @@ echo "ECS_CLUSTER=${var.environment}-cluster" >> /etc/ecs/ecs.config
    EOT
   # Auto scaling group
   asg_name                  = "${var.environment}-asg"
-  vpc_zone_identifier       = "${module.vpc.private_subnets}"
+  vpc_zone_identifier       = module.vpc.private_subnets
   health_check_type         = "EC2"
   min_size                  = 1
   max_size                  = 2
   desired_capacity          = 1
   wait_for_capacity_timeout = 0
-  target_group_arns         = ["${aws_lb_target_group.alb_tg.arn}"]
+  target_group_arns         = [aws_lb_target_group.alb_tg.arn]
   tags = [
     {
       key                 = "AmazonECSManaged"
