@@ -2,14 +2,14 @@ module "vpc" {
 
   source = "terraform-aws-modules/vpc/aws"
 
-  name = "${var.environment}"
+  name = var.environment
 
-  cidr = "${var.vpc_cidr}"
+  cidr = var.vpc_cidr
 
-  azs  = ["${var.awsregion}a", "${var.awsregion}b", "${var.awsregion}c"]
+  azs = ["${var.awsregion}a", "${var.awsregion}b", "${var.awsregion}c"]
 
-  public_subnets = "${var.subnets_public}"
-  private_subnets = "${var.subnets}"
+  public_subnets  = var.subnets_public
+  private_subnets = var.subnets
 
   enable_nat_gateway = true
   single_nat_gateway = true
