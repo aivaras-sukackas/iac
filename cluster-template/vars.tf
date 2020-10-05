@@ -1,9 +1,9 @@
-variable "awsregion" {
-  default = "eu-central-1"
-}
+
+
 variable "environment" {
-  default = "dev"
+  default = ""
 }
+
 variable "vpc_cidr" {
   description = "CIDR block for the VPC"
   default = "10.4.0.0/22"
