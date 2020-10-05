@@ -7,7 +7,7 @@ module "autoscaling" {
   image_id             = var.image_id
   instance_type        = var.instance_type
   security_groups      = [aws_security_group.autoscaling.id]
-  iam_instance_profile = "${var.environment}-ecs-profile"
+  iam_instance_profile = aws_iam_instance_profile.ecs.name
   root_block_device = [
     {
       volume_size = "30"
