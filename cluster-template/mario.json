@@ -1,0 +1,17 @@
+[
+    {
+      "name": "mario",
+      "image": "service-first",
+      "cpu": 100,
+      "memory": 256,
+      "essential": true,
+      "image": "kaminskypavel/mario:latest",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 0
+        }
+      ]
+    }
+
+]
