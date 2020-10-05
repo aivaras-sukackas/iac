@@ -4,8 +4,8 @@ module "autoscaling" {
   # Launch configuration
   lc_name              = "${var.environment}-lc"
   key_name             = aws_key_pair.generated_key.key_name
-  image_id             = "${var.image_id}"
-  instance_type        = "${var.instance_type}"
+  image_id             = var.image_id
+  instance_type        = var.instance_type
   security_groups      = ["${aws_security_group.autoscaling.id}"]
   iam_instance_profile = "${var.environment}-ecs-profile"
   root_block_device = [
