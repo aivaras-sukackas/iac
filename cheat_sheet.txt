@@ -1,0 +1,62 @@
+###Atsidarome vars.tf failą ir pradžioje sukuriame naują įvesties kintamąjį:
+variable "awsregion" {
+  description = "AWS region"
+  default = "eu-central-1"
+}
+
+###Papildome įvesties kintamojo “environment”, numatytają  reikšmę: 
+variable "environment" {
+  default = "dev"
+}
+
+###Atsidarome output.tf failą ir jį papildome informacija.
+output "alb_dns" {
+  value = aws_lb.alb.dns_name
+}
+
+###nunaviguokite iki direktorijos, kurioje yra terraform skriptai:
+cd iac/cluster-template
+
+###Inicializuokite direktoriją iš kurios bus leidžiami terraform skriptai:
+terraform init
+
+###Patikrinkite ar jūsų terraform skriptai yra teisingai parašyti.
+terraform validate
+
+###Susimuliuokite terraform skriptų paleidimą, kad galėtumėt patikrinti ar viską teisingai žadate leisti:
+terraform plan
+
+###Paleiskite terraform skiptų paleidimą:
+terraform apply
+
+###Išstriname komentarus “/*”, “*/” iš failo securitygroup.tf ir:
+terraform validate
+terraform plan
+terraform apply
+
+###Nusikopijuokite visą cluster-template direktoriją. Joje ištrinkite “terraform.tfstate”, “terraform.tfstate.backup”  failus
+### vars.tf faile padaryti šiuos pakeitimus:
+variable "environment" {
+  default = "prod"
+}
+
+variable "vpc_cidr" {
+  description = "CIDR block for the VPC"
+  default     = "10.5.0.0/22"
+}
+
+variable "subnets_public" {
+  description = "CIDR block for the public subnet"
+  default     = ["10.5.0.0/26", "10.5.0.64/26", "10.5.0.128/26", ]
+}
+
+variable "subnets" {
+  default = ["10.5.1.0/24", "10.5.2.0/24", "10.5.3.0/24"]
+}
+
+###nunaviguokite iki direktorijos kurioje yra nauji terraform skriptai
+cd ../cluster-template.1
+###paleiskite naujus resursus
+terraform validate
+terraform plan
+terraform apply
